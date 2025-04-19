@@ -100,3 +100,23 @@ Inject via IOptions<AppSettings>:
 	        return View();
 	    }
 	}
+
+What is the difference between services.AddTransient, services.AddScoped, and services.AddSingleton in ASP.NET Core dependency injection?
+ 1- AddTransient:
+	- A new instance is created every time the service is requested.
+	- You need a fresh instance every time.
+Example:
+	services.AddTransient<IMailerService, MailerService>();
+
+2- AddScoped:
+	- One instance per HTTP request (scope).
+	- The same instance is used throughout a single request.
+	- After the request completes, the instance is disposed.
+Example:
+	services.AddScoped<IProductService, ProductService>();
+
+3- AddSingleton:
+	- A single instance is created and shared across the entire application.
+	- Same instance is used for all users and requests.
+Example:
+	services.AddSingleton<ICacheService, MemoryCacheService>();
