@@ -1,3 +1,28 @@
 1- What Is Dependency Injection?
 Answer: is a s/w design pattern allows us to develop loosely coupled app.
 
+1- What Is Dependency Injection?
+Answer: is a s/w design pattern allows us to develop loosely coupled app.
+
+2- View Data:
+	- pass data from controller to view.
+	- derived from viewdata dictionary class.
+	- required typecasting for complex data type for error check & null value.
+	- available for current request only
+
+3- View Bag:
+	- pass data from controller to view
+	- is a dynamic property.
+	- available for current request only.
+	- doesn't required typecasting for complex datatype.
+
+4- Temp Data:
+	- is derived from TempData dictionary class
+	- used to pass data from current request to next request.
+	- after read Temp data if we want to save and pass to next http request then we will use keep() method.
+	- if we want to only keep specific temp data then we can pass tempdata name like keep('userdetail1').
+	- It keep the information if we move from one controller to another controller or from one action method to another action method.
+	- required type casting for complex data type or null value checking.
+
+
+
