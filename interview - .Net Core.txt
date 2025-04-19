@@ -30,4 +30,73 @@ Answer: is a s/w design pattern allows us to develop loosely coupled app.
 		- ConfigureServices: Used to add services to the application’s DI container.
 		- Configure: Used to define how the app responds to HTTP requests, essentially setting up the request processing pipeline with middleware.
 
+6- What is the role of the appsettings.json file in ASP.NET Core? How do you access settings from this file in your application?
+	- is used for storing configuration settings like connection strings, logging configurations, and application-specific settings. 
+	- Settings from this file can be accessed in the application through the IConfiguration interface, which is typically injected into classes where 			configurations are needed.
 
+	Role of appsettings.json:
+		- Centralized Configuration: Keeps all settings in one place.
+		- Environment-Specific Settings: Can be overridden using appsettings.Development.json, appsettings.Production.json, etc.
+		- Supports Hierarchical Data: Settings can be nested and organized.
+		- Easily Readable & Editable: JSON format is developer-friendly.
+
+Example: 
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=myServer;Database=myDb;User Id=myUser;Password=myPass;"
+  },
+  "AppSettings": {
+    "SiteTitle": "My Web App",
+    "PageSize": 20
+  },.0
+6
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information"
+    }
+  }
+}
+
+7- How to Access Settings in ASP.NET Core?
+	public class HomeController : Controller
+	{
+	    private readonly IConfiguration _configuration;
+	
+	    public HomeController(IConfiguration configuration)
+	    {
+	        _configuration = configuration;
+	    }
+	
+	    public IActionResult Index()
+	    {
+	        string siteTitle = _configuration["AppSettings:SiteTitle"];
+	        int pageSize = Convert.ToInt32(_configuration["AppSettings:PageSize"]);
+	        return View();
+	    }
+	}
+=================================== OR ===============================================
+	public class AppSettings
+	{
+	    public string SiteTitle { get; set; }
+	    public int PageSize { get; set; }
+	}
+
+	Register in Program.cs or Startup.cs:
+	builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+Inject via IOptions<AppSettings>:
+	public class HomeController : Controller
+	{
+	    private readonly AppSettings _appSettings;
+	
+	    public HomeController(IOptions<AppSettings> appSettings)
+	    {
+	        _appSettings = appSettings.Value;
+	    }
+	
+	    public IActionResult Index()
+	    {
+	        string title = _appSettings.SiteTitle;
+	        return View();
+	    }
+	}
