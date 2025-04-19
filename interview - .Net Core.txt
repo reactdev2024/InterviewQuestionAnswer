@@ -24,5 +24,10 @@ Answer: is a s/w design pattern allows us to develop loosely coupled app.
 	- It keep the information if we move from one controller to another controller or from one action method to another action method.
 	- required type casting for complex data type or null value checking.
 
+5- What is the purpose of the Startup.cs file in an ASP.NET Core application?
+	- The Startup.cs file is where you configure the services and the request pipeline for an ASP.NET Core application. 
+	It contains two methods:
+		- ConfigureServices: Used to add services to the application’s DI container.
+		- Configure: Used to define how the app responds to HTTP requests, essentially setting up the request processing pipeline with middleware.
 
 
